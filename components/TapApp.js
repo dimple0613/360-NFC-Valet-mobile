@@ -820,7 +820,8 @@ function TapApp() {
   useEffect(() => {
     const propId = data?.property?.id || data?.order?.propertyId;
     if (!propId || !mounted.current) return;
-    const wsUrl = (typeof window !== "undefined" ? window.location.origin : "").replace(":3001", ":3002");
+    const wsUrl = process.env.NEXT_PUBLIC_WS_URL || "";
+    if (!wsUrl) return;
     const socket = io(wsUrl, {
       transports: ["websocket", "polling"],
       reconnection: true,
