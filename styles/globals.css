@@ -390,9 +390,16 @@ button {
 
 .cat-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(6, minmax(min-content, 1fr));
+  grid-gap: 8px;
   gap: 8px;
   margin-top: 16px;
+  overflow-x: scroll;
+  scrollbar-width: none;
+}
+
+.cat-grid::-webkit-scrollbar {
+  display: none;
 }
 
 .cat-tile {
@@ -1547,9 +1554,6 @@ button {
   }
   .offer-grid {
     grid-template-columns: 1fr 1fr;
-  }
-  .cat-grid {
-    grid-template-columns: repeat(3, 1fr);
   }
   .ready-green {
     border-radius: 28px;

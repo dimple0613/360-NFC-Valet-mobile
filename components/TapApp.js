@@ -600,9 +600,10 @@ function OfferDetail({ offer, property, onBack, leftMs, onViewStatus, apiCall })
               <>
                 <div className="code-row">
                   <div className="code-input-wrap">
-                    <span className="code-input-label">Staff validation code</span>
+                    <span className="code-input-label" style={{ width: "40%" }}>Staff validation code</span>
                     <input
                       className="code-input"
+                      style={{ width: "60%" }}
                       inputMode="numeric"
                       maxLength={4}
                       placeholder="• • • •"
