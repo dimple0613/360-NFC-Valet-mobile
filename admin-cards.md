@@ -1,0 +1,42 @@
+- generic [active] [ref=f4e1]:
+  - generic [ref=f4e2]:
+    - generic [ref=f4e60]:
+      - generic [ref=f4e61]:
+        - generic [ref=f4e62]: 360 NFC Valet
+        - generic [ref=f4e69]:
+          - generic [ref=f4e70]: Every car back at the curb before the guest is.
+          - generic [ref=f4e71]: Run every property, driver and NFC card from one console — and see the day's numbers as they happen.
+          - generic [ref=f4e72]:
+            - generic [ref=f4e73]:
+              - generic [ref=f4e74]: 6:40
+              - generic [ref=f4e75]: avg return time
+            - generic [ref=f4e76]:
+              - generic [ref=f4e77]: "248"
+              - generic [ref=f4e78]: cars today
+            - generic [ref=f4e79]:
+              - generic [ref=f4e80]: 31%
+              - generic [ref=f4e81]: offers validated
+        - generic [ref=f4e82]: © 2026 We Want 360 · Dubai, UAE
+      - generic [ref=f4e84]:
+        - generic [ref=f4e85]: Welcome back
+        - generic [ref=f4e86]: Sign in to the operations console.
+        - generic [ref=f4e87]:
+          - generic [ref=f4e90]:
+            - generic [ref=f4e91]: Work email
+            - textbox "Work email" [ref=f4e92]:
+              - /placeholder: admin@wewant360.com
+              - text: admin@wewant360.com
+          - generic [ref=f4e94]:
+            - generic [ref=f4e95]:
+              - generic [ref=f4e96]: Password
+              - textbox "Password" [ref=f4e97]:
+                - /placeholder: ••••••••••
+            - button "Toggle password visibility" [ref=f4e98] [cursor=pointer]
+        - generic [ref=f4e102]:
+          - button "Keep me signed in" [ref=f4e103] [cursor=pointer]
+          - link "Forgot password?" [ref=f4e108] [cursor=pointer]:
+            - /url: /forgot-password
+        - button "Sign in" [ref=f4e109] [cursor=pointer]
+        - button "Sign in with SSO" [ref=f4e110] [cursor=pointer]
+    - status
+  - alert [ref=f4e59]: /login

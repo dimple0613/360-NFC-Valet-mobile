@@ -1,0 +1,27 @@
+- generic [active] [ref=f4e1]:
+  - generic [ref=f4e2]:
+    - generic [ref=f4e3]:
+      - complementary [ref=f4e4]:
+        - generic [ref=f4e5]: 360 Valet
+        - navigation [ref=f4e12]:
+          - link "Dashboard" [ref=f4e13] [cursor=pointer]:
+            - /url: /dashboard
+          - link "Locations" [ref=f4e20] [cursor=pointer]:
+            - /url: /locations
+          - link "Drivers" [ref=f4e26] [cursor=pointer]:
+            - /url: /drivers
+          - link "NFC Cards" [ref=f4e33] [cursor=pointer]:
+            - /url: /cards
+          - link "Offers" [ref=f4e37] [cursor=pointer]:
+            - /url: /offers
+          - link "Reports" [ref=f4e41] [cursor=pointer]:
+            - /url: /reports
+        - button "A Admin Super Admin" [ref=f4e46] [cursor=pointer]:
+          - generic [ref=f4e47]: A
+          - generic [ref=f4e48]:
+            - generic [ref=f4e49]: Admin
+            - generic [ref=f4e50]: Super Admin
+      - main [ref=f4e53]:
+        - generic [ref=f4e54]: Loading cards…
+    - status
+  - alert [ref=f4e59]

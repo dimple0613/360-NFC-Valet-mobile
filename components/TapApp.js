@@ -201,6 +201,8 @@ function StatusHero({ order, leftMs, onViewStatus }) {
 function Home({ data, onOpenEta, onBrowse, onReload, onViewStatus, leftMs }) {
   const featured = (data.offers || []).filter((o) => o.featured).slice(0, 2);
   const hasRequest = leftMs != null;
+  const orderActive = data.order && data.order.status !== "returned";
+  const orderReturned = data.order && data.order.status === "returned";
   return (
     <div className="home">
       <div className="url-pill">
@@ -213,7 +215,7 @@ function Home({ data, onOpenEta, onBrowse, onReload, onViewStatus, leftMs }) {
       <C1Banner property={data.property} />
       {hasRequest ? (
         <StatusHero order={data.order} leftMs={leftMs} onViewStatus={onViewStatus} />
-      ) : data.order ? (
+      ) : orderActive && data.order ? (
         <>
           <button type="button" className="bring-hero" onClick={onOpenEta}>
             <span className="bring-hero-icon">
@@ -236,6 +238,22 @@ function Home({ data, onOpenEta, onBrowse, onReload, onViewStatus, leftMs }) {
           </button>
           <CarStrip order={data.order} card={data.card} />
         </>
+      ) : orderReturned ? (
+        <div className="no-car-panel">
+          <span className="no-car-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4 12.5 9.5 18 20 6.5" />
+            </svg>
+          </span>
+          <b>Visit complete</b>
+          <span>Your car was returned. Thanks for using valet — tap offers below while you stay with us.</span>
+          <div className="no-car-actions">
+            <button type="button" className="btn-eta" onClick={onReload}>Reload page</button>
+            <button type="button" className="btn-ghost" onClick={() => document.getElementById("offers-row")?.scrollIntoView({ behavior: "smooth" })}>
+              Browse offers
+            </button>
+          </div>
+        </div>
       ) : (
         <div className="no-car-panel">
           <span className="no-car-icon">
@@ -373,7 +391,7 @@ function RequestState({ order, request, leftMs, onBack, onDone }) {
           </svg>
           <div className="c3-ring-time">
             <b>{mm}:{ss}</b>
-            <span>until your car is out</span>
+            <span>{left === 0 ? "driver arriving any moment" : "until your car is out"}</span>
           </div>
         </div>
         <div className="driver-chip">
@@ -687,6 +705,14 @@ function Landing({ onNavigate }) {
             }
           }
         }
+        if (!uid) {
+          const serial = (serialNumber || "").trim().toUpperCase();
+          if (/^[0-9A-F]{2}(:[0-9A-F]{2})+$/.test(serial)) {
+            setNfcScanning(false);
+            onNavigate(serial);
+            return;
+          }
+        }
         setNfcScanning(false);
         if (uid) onNavigate(uid);
         else setNfcError("Could not extract card number. Enter it manually below.");
@@ -866,10 +892,6 @@ function TapApp() {
     });
     return () => { bannerTimers.forEach(clearTimeout); socket.disconnect(); };
   }, [data?.property?.id, data?.order?.id]);
-
-  useEffect(() => {
-    if (request && !ready && leftMs === 0) setReady(true);
-  }, [request, ready, leftMs]);
 
   useEffect(() => {
     if (!uid) {

@@ -1,0 +1,6 @@
+- generic [active] [ref=f3e1]:
+  - generic [ref=f3e6]:
+    - generic [ref=f3e10]: Card not recognised
+    - generic [ref=f3e11]: Failed to fetch
+    - button "Try again" [ref=f3e12] [cursor=pointer]
+  - alert [ref=f3e5]: /t/8081
