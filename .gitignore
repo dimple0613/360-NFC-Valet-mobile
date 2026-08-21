@@ -11,3 +11,7 @@ dev.log
 node_modules/
 .DS_Store
 npm-debug.log*
+
+.playwright-mcp/
+admin-cards.md
+page-*.md
