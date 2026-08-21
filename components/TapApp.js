@@ -805,6 +805,7 @@ function TapApp() {
   const [fetchKey, setFetchKey] = useState(0);
   const [wsBanner, setWsBanner] = useState(null);
   const mounted = useRef(false);
+  const statusRef = useRef(null);
   const now = useNow(true);
   const target = request?.eta ? new Date(request.eta).getTime() : 0;
   const leftMs = target ? Math.max(0, target - now) : null;
@@ -882,6 +883,7 @@ function TapApp() {
       .then((d) => {
         if (!alive) return;
         setData(d);
+        statusRef.current = d.order?.status || null;
         setLoadState("ready");
         if (d.order?.status === "returning" && d.order?.guestEta) {
           const etaMs = new Date(d.order.guestEta).getTime();
@@ -907,6 +909,32 @@ function TapApp() {
       alive = false;
     };
   }, [uid, fetchKey]);
+
+  useEffect(() => {
+    if (loadState !== "ready" || !uid) return;
+    const id = setInterval(async () => {
+      try {
+        const d = await api(`/public/tap/${encodeURIComponent(uid)}`);
+        if (!mounted.current) return;
+        const prev = statusRef.current;
+        const next = d.order?.status || null;
+        setData(d);
+        if (prev === next) return;
+        statusRef.current = next;
+        if (next === "returning" && d.order?.guestEta) {
+          setRequest({
+            eta: d.order.guestEta,
+            minutes: Math.max(5, Math.ceil((new Date(d.order.guestEta).getTime() - Date.now()) / 60000)),
+          });
+          setReady(false);
+        } else if (next === "returned") {
+          setRequest(null);
+          setReady(true);
+        }
+      } catch {}
+    }, 15000);
+    return () => clearInterval(id);
+  }, [loadState, uid]);
 
   const onSubmitEta = async (minutes) => {
     if (!data?.order) {
